@@ -6,6 +6,11 @@ if (!gl) {
     throw new Error('WebGL not supported');
 }
 
+// Set canvas size
+canvas.width = 800;
+canvas.height = 600;
+gl.viewport(0, 0, canvas.width, canvas.height);
+
 const vertexShaderSource = `
     attribute vec4 aVertexPosition;
     attribute vec4 aVertexColor;
@@ -157,7 +162,7 @@ function drawScene(gl, programInfo, buffers, rotation) {
 
     const modelViewMatrix = mat4.create();
 
-    mat4.translate(modelViewMatrix, modelViewMatrix, [-0.0, 0.0, -6.0]);
+    mat4.translate(modelViewMatrix, modelViewMatrix, [0.0, 0.0, -6.0]);
     mat4.rotate(modelViewMatrix, modelViewMatrix, rotation, [0, 1, 0]);
 
     {
@@ -320,5 +325,10 @@ const mat4 = {
         return out;
     }
 };
+
+// Debug logging
+console.log('WebGL context created:', gl);
+console.log('Shader program initialized:', shaderProgram);
+console.log('Buffer objects created:', buffers);
 
 requestAnimationFrame(render);
